@@ -17,3 +17,8 @@ python manage.py migrate appname,
 如果要想精确到某一个迁移文件则可以使用：
 
 python manage.py migrate appname 文件名
+
+2、接口调用：
+----------
+进入到MyDjango目录，执行python manage.py runserver 你的ip:8000
+在浏览器输入http://ip:8000/ 加上url.py里的方法名和参数即可访问
