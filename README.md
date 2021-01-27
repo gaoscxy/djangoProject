@@ -1,7 +1,9 @@
 # djangoProject
 第一个python程序
+=======
 
 1、数据库操作：
+-------
 迁移到数据库命令：
 python manage.py makemigrations
 python manage.py migrate
