@@ -2,13 +2,20 @@
 第一个python程序
 =======
 
+说明：
+-----
+
+DataCrawl为爬取数据存储到数据库app
+
+Mybook为从数据库中读取数据，生成接口供前台调用app
+
 1、数据库操作：
 -------
 迁移到数据库命令：
 python manage.py makemigrations
 python manage.py migrate
 
-需要注意的是这两个命令默认情况下是作用于全局，也就是对所有最新更改的models或者migrations下面的迁移文件进行对应的操作，如果要想仅仅对部分app进行作用的话  则执行如下命令：
+需要注意的是这上面两个命令默认情况下是作用于全局，也就是对所有最新更改的models或者migrations下面的迁移文件进行对应的操作，如果要想仅仅对部分app进行作用的话  则执行如下命令：
 
 python manage.py makemigrations appname,
 
