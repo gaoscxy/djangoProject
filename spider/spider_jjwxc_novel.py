@@ -78,7 +78,7 @@ def get_text(url,name):
     title = selector.xpath('//*[@class="noveltext"]/div/h2/text()')
     txt = selector.xpath('//*[@class="noveltext"]/text()')
     print(title)
-    mkpath = 'txts\\' + name + '\\'
+    mkpath = 'txts\\\\' + name + '\\'
     mkdir(mkpath)
     fp = open(mkpath + '\\' + title[0] + '.txt', 'w')
     # fp = open('txts\\' + title[0] + '.txt', 'w')

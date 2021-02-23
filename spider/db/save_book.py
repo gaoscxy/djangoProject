@@ -3,7 +3,9 @@ import datetime
 
 
 # 保存书本信息到数据库
-from spider.db.sql import get_mysql_db
+import time
+
+from spider.db.sql import get_mysql_db, addbook
 
 
 def save_book_info(one_book_dict):
@@ -21,23 +23,27 @@ def save_book_info(one_book_dict):
     # 获取书本的简介
     book_introduce = one_book_dict.get("introduce")
     # 执行存入数据库的操作
-    sql = r'INSERT into mybook_bookinfo (book_name,book_author,book_introduce) values("%s","%s","%s");' \
-          % (book_name, book_author, book_introduce)
-    try:
-        cursor.execute(sql)
-        db.commit()
-        print(datetime.datetime.now())
-        print("success save book")
-        cursor.close()
-        db.close()
-        return 1
-    except:
-        db.rollback()
-        print(datetime.datetime.now())
-        print("rollback once")
-        cursor.close()
-        db.close()
-        return 0
+
+    addbook(db,book_name,book_author,book_introduce)
+    # strtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    # str = ','.join(book_introduce)
+    # sql = r'INSERT INTO mybook_bookinfo (book_name,book_author,book_introduce,) VALUES("%s","%s","%s");' \
+    #       % (book_name, book_author, str)
+    # try:
+    #     cursor.execute(sql)
+    #     db.commit()
+    #     print(datetime.datetime.now())
+    #     print("success save book")
+    #     cursor.close()
+    #     db.close()
+    #     return 1
+    # except:
+    #     db.rollback()
+    #     print(datetime.datetime.now())
+    #     print("rollback once")
+    #     cursor.close()
+    #     db.close()
+    #     return 0
 
 
 
@@ -46,7 +52,7 @@ def get_book_id_by_name(book_name):
     db = get_mysql_db()
     cursor = db.cursor()
 
-    sql = 'SELECT id FROM mybook_bookinfo WHERE name="%s";' % book_name
+    sql = 'SELECT book_id FROM mybook_bookinfo WHERE book_name="%s";' % book_name
 
     cursor.execute(sql)
 
@@ -81,8 +87,8 @@ def get_book_id_by_name(book_name):
 # 根据one_chapter字典保存信息到chapter表中
 def save_chapter(one_chapter):
     # 获取传值
-    bookinfo_id = one_chapter.get("bookinfo_id")
-    chapter_name = one_chapter.get("chapter_name")
+    bookinfo_id = one_chapter.get("book_id")
+    chapter_name = one_chapter.get("chapter_name")[0]
     chapter_path = one_chapter.get("chapter_path")
     # 获取db
     db = get_mysql_db()
