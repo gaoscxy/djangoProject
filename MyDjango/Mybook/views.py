@@ -1,3 +1,4 @@
+import codecs
 import json
 
 from django.http import HttpResponse
@@ -27,6 +28,27 @@ def getBookList(request):
         # return HttpResponse(json.dumps(result))
 
 
+@api_view(['GET','POST'])
+def getCatalogList(request):
+    if request.method =="GET":
+        book_id = request.GET.get('book_id')
+        result = Chapterinfo.objects.filter(bookinfo_id=book_id)
+        # print(result)
+        # return
+        response = json.dumps(list(result.values()))
+        info_get = {'code': 200,'msg':'scucces','data':list(result.values())}
+        return HttpResponse(json.dumps(info_get))
+        # return HttpResponse(json.dumps(result)
+
+@api_view(['GET','POST'])
+def getBookDetails(request):
+    if request.method =="GET":
+        path = request.GET.get('path')
+        f = open(path, 'r+')
+        # f = codecs.open(path, mode='r', encoding='utf-8')  # 打开txt文件，以"utf-8'编码读取
+        line = f.read()  # 以行的形式进行读取文件
+        info_get = {'code': 200,'msg':'scucces','data':line}
+        return HttpResponse(json.dumps(info_get))
 # @api_view(['GET','POST'])
 # def saveBook(request):
 #

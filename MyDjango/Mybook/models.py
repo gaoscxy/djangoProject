@@ -31,7 +31,7 @@ class Bookinfo(models.Model):
     book_author = models.CharField(max_length=20)
     book_introduce = models.CharField(max_length=10000)
     book_update_time = models.CharField(max_length=20)
-    img_src = models.CharField(max_length=100)
+    # img_src = models.CharField(max_length=100)
 
     def __str__(self):
       return self.book_name

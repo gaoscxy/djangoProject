@@ -7,7 +7,12 @@ import random
 from spider.db import sql
 from spider.db.save_book import save_book_info, get_book_id_by_name, save_chapter
 
-url1 = 'http://www.jjwxc.net/onebook.php?novelid=3704522'
+# url1 = 'http://www.jjwxc.net/onebook.php?novelid=3704522'
+# url1 = 'http://www.jjwxc.net/onebook.php?novelid=3373718'
+# url1 = 'http://www.jjwxc.net/onebook.php?novelid=3409200'
+# url1 = 'http://www.jjwxc.net/onebook.php?novelid=2423737'
+# url1 = 'http://www.jjwxc.net/onebook.php?novelid=5502413'
+url1 = 'http://www.jjwxc.net/onebook.php?novelid=3419133'
 url2 = 'http://www.jjwxc.net/'
 
 user_agent = [
