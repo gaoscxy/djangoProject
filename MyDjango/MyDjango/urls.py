@@ -30,9 +30,10 @@ from Mybook import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('saveBook/',views.saveBook),  #在网页上输入127.0.0.1:8000/save即可进入该接口，只需要带入相应参数和请求类型
-    path('getBookList/',views.getBookList),  #在网页上输入127.0.0.1:8000/save即可进入该接口，只需要带入相应参数和请求类型
-    path('getCatalogList/',views.getCatalogList),  #在网页上输入127.0.0.1:8000/save即可进入该接口，只需要带入相应参数和请求类型
-    path('getBookDetails/',views.getBookDetails),  #在网页上输入127.0.0.1:8000/save即可进入该接口，只需要带入相应参数和请求类型
+    path('getBookList/',views.getBookList),  #图书列表
+    path('getCatalogList/',views.getCatalogList),  #目录列表
+    path('getBookDetails/',views.getBookDetails),  #图书详情
+    path('getSearchBookList/',views.getSearchBookList),  #图书搜索
     # path('spiderJjwxc/', spider_jjwxc_novel.setData()),  #晋江文学城数据
     # url(r'^card_list_vew',views.card_list_view),
 ]

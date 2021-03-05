@@ -49,6 +49,16 @@ def getBookDetails(request):
         line = f.read()  # 以行的形式进行读取文件
         info_get = {'code': 200,'msg':'scucces','data':line}
         return HttpResponse(json.dumps(info_get))
+
+@api_view(['GET','POST'])
+def getSearchBookList(request):
+    if request.method =="GET":
+        keyword = request.GET.get('keyword')
+        result = Bookinfo.objects.filter(book_name=keyword)
+        if not result:
+            result = Bookinfo.objects.filter(book_author=keyword)
+        info_get = {'code': 200,'msg':'scucces','data':list(result.values())}
+        return HttpResponse(json.dumps(info_get))
 # @api_view(['GET','POST'])
 # def saveBook(request):
 #
