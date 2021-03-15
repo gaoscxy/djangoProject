@@ -34,6 +34,8 @@ urlpatterns = [
     path('getCatalogList/',views.getCatalogList),  #目录列表
     path('getBookDetails/',views.getBookDetails),  #图书详情
     path('getSearchBookList/',views.getSearchBookList),  #图书搜索
+    path('getVersion/',views.getVersion),  #通知
+    path('saveRecommendBook/',views.saveRecommendBook),  #保存推荐图书数据
     # path('spiderJjwxc/', spider_jjwxc_novel.setData()),  #晋江文学城数据
     # url(r'^card_list_vew',views.card_list_view),
 ]
