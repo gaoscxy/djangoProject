@@ -13,9 +13,17 @@ from Mybook.models import Bookinfo, Chapterinfo, Versioninfo, Recommendinfo
 def getBookList(request):
     if request.method =="GET":
         result = Bookinfo.objects.all().values()
-        # print(result)
+        page1 = request.GET.get('page')
+        page = int(page1)
+        if(page==None):
+            result = Bookinfo.objects.all().values()
+        # elif(page==1):
+        #     result = Bookinfo.objects.all().values()[0:20]
+        else:
+            result = Bookinfo.objects.all().values()[((page-1)*30):page*30]
+        print(result)
         # return
-        response = json.dumps(list(result.values()))
+        # response = json.dumps(list(result.values()))
         info_get = {'code': 200,'msg':'scucces','data':list(result.values())}
         return HttpResponse(json.dumps(info_get))
         # return HttpResponse(json.dumps(result))
@@ -47,7 +55,7 @@ def getBookDetails(request):
 def getSearchBookList(request):
     if request.method =="GET":
         keyword = request.GET.get('keyword')
-        result = Bookinfo.objects.filter(book_name=keyword)
+        result = Bookinfo.objects.filter(book_name__contains=keyword)
         if not result:
             result = Bookinfo.objects.filter(book_author=keyword)
         info_get = {'code': 200,'msg':'scucces','data':list(result.values())}
@@ -86,6 +94,12 @@ def saveRecommendBook(request):
         else:
             answer = json.dumps({'code': '112'})
         return HttpResponse(answer)
+@api_view(['GET','POST'])
+def isMarketPass(request):
+    if request.method == "GET":
+        info_get = {'code': 300,'msg':'','data':''}
+        answer = json.dumps(info_get)
+    return HttpResponse(answer)
 #
 #     elif request.method == "POST":
 #         title = request.POST.get('title')

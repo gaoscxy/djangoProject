@@ -67,21 +67,21 @@ def get_book_id_by_name(book_name):
         return 0
 
 
-# # 根据book_id,查询数据库并更改has_chapter的值设为0
-# def set_book_has_chapter_by_id(book_id):
-#     db = get_mysql_db()
-#     cursor = db.cursor()
-#     sql = r'update mybook_bookinfo set has_chapter=0  where id=%s;' % book_id
-#     try:
-#         cursor.execute(sql)
-#         db.commit()
-#         print(datetime.datetime.now())
-#         print("set has_chapter value success")
-#     except:
-#         db.rollback()
-#
-#     cursor.close()
-#     db.close()
+# 根据name,查询数据库并更改intro的值设
+def set_book_introduce_by_book_name(book_name,book_introduce):
+    db = get_mysql_db()
+    cursor = db.cursor()
+    sql = r'update mybook_bookinfo set book_introduce="%s"  where book_name="%s";' % (book_introduce,book_name)
+    try:
+        cursor.execute(sql)
+        db.commit()
+        print(datetime.datetime.now())
+        print("set has_chapter value success")
+    except:
+        db.rollback()
+
+    cursor.close()
+    db.close()
 
 
 # 根据one_chapter字典保存信息到chapter表中
