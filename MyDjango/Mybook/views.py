@@ -7,8 +7,7 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 
 from Mybook.models import Bookinfo, Chapterinfo, Versioninfo, Recommendinfo
-
-
+startnum = 0
 @api_view(['GET','POST'])
 def getBookList(request):
     if request.method =="GET":
@@ -34,9 +33,9 @@ def getCatalogList(request):
     if request.method =="GET":
         book_id = request.GET.get('book_id')
         result = Chapterinfo.objects.filter(bookinfo_id=book_id)
-        # print(result)
-        # return
-        response = json.dumps(list(result.values()))
+        bookinfo = Bookinfo.objects.filter(book_id=book_id).first()
+        order_no = bookinfo.order_no
+        Bookinfo.objects.filter(book_id=book_id).update(order_no=order_no+1)
         info_get = {'code': 200,'msg':'scucces','data':list(result.values())}
         return HttpResponse(json.dumps(info_get))
         # return HttpResponse(json.dumps(result)
@@ -45,7 +44,7 @@ def getCatalogList(request):
 def getBookDetails(request):
     if request.method =="GET":
         path = request.GET.get('path')
-        f = open(path, 'r+')
+        f = open(path, 'r+', encoding='utf-8')
         # f = codecs.open(path, mode='r', encoding='utf-8')  # 打开txt文件，以"utf-8'编码读取
         line = f.read()  # 以行的形式进行读取文件
         info_get = {'code': 200,'msg':'scucces','data':line}
@@ -55,6 +54,7 @@ def getBookDetails(request):
 def getSearchBookList(request):
     if request.method =="GET":
         keyword = request.GET.get('keyword')
+        # todo 搜索次数加1
         result = Bookinfo.objects.filter(book_name__contains=keyword)
         if not result:
             result = Bookinfo.objects.filter(book_author=keyword)
@@ -66,17 +66,7 @@ def getVersion(request):
     if request.method =="GET":
         result = Versioninfo.objects.last()
         data = Versioninfo.toJSON(result)
-        # data = serializers.serialize("json", [result],fields=('version_code', 'updatemsg'))
-        # data = json.loads(data)
-        # for d in data:
-        #     del d['pk']
-        #     del d['model']
-        print ("data--------"+str(data))
-        # if not result:
-        # if result is None:
-        #     info_get = {'code': 300,'msg':'scucess','data':result}
-        # else:
-        #     info_get = {'code': 200,'msg':'scucess','data':result}
+        print("启动------")
         return HttpResponse(data)
 @api_view(['GET','POST'])
 def saveRecommendBook(request):
@@ -97,7 +87,7 @@ def saveRecommendBook(request):
 @api_view(['GET','POST'])
 def isMarketPass(request):
     if request.method == "GET":
-        info_get = {'code': 300,'msg':'','data':''}
+        info_get = {'code': 200,'msg':'','data':''}
         answer = json.dumps(info_get)
     return HttpResponse(answer)
 #

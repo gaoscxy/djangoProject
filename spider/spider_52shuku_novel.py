@@ -85,8 +85,8 @@ def get_text(url,name,title):
     print(title)
     mkpath = 'txts\\\\' + name + '\\'
     mkdir(mkpath)
-    fp = open(mkpath + '\\' + title + '.txt', 'w',encoding='utf-8')
-    # fp = open('txts\\' + title[0] + '.txt', 'w')
+    # fp = open(mkpath + '\\' + title + '.txt', 'w',encoding='utf-8')
+    fp = open('txts\\' + title + '.txt', 'w',encoding='utf-8')
     for each in txt:
         fp.write(each + "\n")
     fp.close()
